@@ -11,7 +11,7 @@ const PostScreen = ({ navigation, route }) => {
     const booked = useSelector(state => state.posts.booked.find(p => p.id === postId));
 
     const handleToggleBooked = () => {
-        dispatch(toggleBooked(postId));
+        dispatch(toggleBooked(post));
     };
 
     useEffect(() => {

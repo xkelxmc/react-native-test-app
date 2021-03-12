@@ -2,7 +2,6 @@ import React from 'react';
 import { Pressable, View, Image, Text, StyleSheet } from 'react-native';
 
 const Post = ({ post, onOpen }) => {
-    console.log(post);
     return (
         <Pressable onPress={() => onOpen(post)} style={({ pressed }) => [styles.post, { opacity: pressed ? 0.5 : 1 }]}>
             <View>

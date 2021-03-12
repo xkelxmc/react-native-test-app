@@ -1,15 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableWithoutFeedback, Keyboard, TextInput, StyleSheet } from 'react-native';
+import {
+    View,
+    Text,
+    ScrollView,
+    TouchableWithoutFeedback,
+    Keyboard,
+    TextInput,
+    StyleSheet,
+    Button,
+} from 'react-native';
 import PhotoPicker from '../components/PhotoPicker';
+import { useDispatch } from 'react-redux';
+import { createPost } from '../store/actions/post';
 
 const CreateScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
+    const dispatch = useDispatch();
     useEffect(() => {
         navigation.setOptions({
             headerTitle: 'Создать пост',
         });
     }, []);
+    const handleSave = () => {
+        const post = {
+            date: new Date().toString(),
+            text,
+            title,
+            img: 'https://via.placeholder.com/385x200',
+        };
+        dispatch(createPost(post));
+        navigation.goBack();
+    };
     return (
         <ScrollView>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -29,6 +51,7 @@ const CreateScreen = ({ navigation }) => {
                         multiline
                     />
                     <PhotoPicker />
+                    <Button title={'Создать'} onPress={handleSave} disable={!title || !text} />
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>
